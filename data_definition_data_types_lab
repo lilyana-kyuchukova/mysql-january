@@ -1,47 +1,34 @@
--- Create Database
-CREATE DATABASE IF NOT EXISTS minions;
+USE gamebar;
 
-USE minions;
-
--- 1.Create Tables
-CREATE TABLE IF NOT EXISTS minions (
-    id INT AUTO_INCREMENT NOT NULL,
-    name VARCHAR(50),
-    age INT,
-    PRIMARY KEY (id)
+CREATE TABLE categories (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50) NOT NULL
+    
 );
 
-CREATE TABLE IF NOT EXISTS towns (
-    town_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    name VARCHAR(50)
+CREATE TABLE products (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(50) NOT NULL,
+    category_id INT NOT NULL
 );
 
--- 2.Alter Minions Table
-ALTER TABLE towns
-RENAME column town_id to id;
+CREATE TABLE IF NOT EXISTS `employees` (
+    `id` INT AUTO_INCREMENT PRIMARY KEY,
+    `first_name` VARCHAR(50) NOT NULL,
+    `last_name` VARCHAR(50) NOT NULL
+);
 
-ALTER TABLE minions
-ADD COLUMN town_id INT,
-ADD FOREIGN KEY (town_id) REFERENCES towns(id);
-
--- ALTER TABLE minions
--- ADD FOREIGN KEY (town_id) REFERENCES towns(id);
-
--- 3.Insert Records in Both Tables
-INSERT INTO towns(name)
+INSERT INTO employees(first_name, last_name)
 VALUES
-	("Sofia"),
-	("Plovdiv"),
-	("Varna");
-    
-INSERT INTO minions(name, age, town_id)
-VALUES
-	("Kevin", 22, 1),
-    ("Bob", 15, 3),
-    ("Steward", NULL, 2);
-    
--- 4.Truncate Table Minions
-TRUNCATE minions;
+	("value", "one"),
+	("value2", "two"),
+	("value3", "three");
 
--- 5.Drop All Tables
-DROP TABLES minions, towns;
+ALTER TABLE employees
+ADD COLUMN middle_name VARCHAR(50) NOT NULL AFTER first_name;
+
+ALTER TABLE products
+ADD FOREIGN KEY (category_id) REFERENCES categories(id);
+
+ALTER TABLE employees
+MODIFY COLUMN middle_name VARCHAR(100);
