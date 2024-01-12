@@ -1,1 +1,110 @@
+-- Create Database
+CREATE DATABASE IF NOT EXISTS minions;
 
+USE minions;
+
+-- 1.Create Tables
+CREATE TABLE IF NOT EXISTS minions (
+    id INT AUTO_INCREMENT NOT NULL,
+    name VARCHAR(50),
+    age INT,
+    PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS towns (
+    town_id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    name VARCHAR(50)
+);
+
+-- 2.Alter Minions Table
+ALTER TABLE towns
+RENAME column town_id to id;
+
+ALTER TABLE minions
+ADD COLUMN town_id INT,
+ADD FOREIGN KEY (town_id) REFERENCES towns(id);
+
+-- ALTER TABLE minions
+-- ADD FOREIGN KEY (town_id) REFERENCES towns(id);
+
+-- 3.Insert Records in Both Tables
+INSERT INTO towns(name)
+VALUES
+	("Sofia"),
+	("Plovdiv"),
+	("Varna");
+    
+INSERT INTO minions(name, age, town_id)
+VALUES
+	("Kevin", 22, 1),
+    ("Bob", 15, 3),
+    ("Steward", NULL, 2);
+    
+-- 4.Truncate Table Minions
+TRUNCATE minions;
+
+-- 5.Drop All Tables
+DROP TABLES minions, towns;
+
+CREATE DATABASE people;
+
+USE people;
+
+-- 6.Create Table People
+CREATE TABLE IF NOT EXISTS people (
+    id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+    name VARCHAR(200) NOT NULL,
+    picture BLOB,
+    height DOUBLE(3, 2),
+    weight DOUBLE(4, 2),
+    gender CHAR(1) NOT NULL,
+    CONSTRAINT chk_gender CHECK (gender IN ('m' , 'f')),
+    birthdate TEXT NOT NULL,
+    biography LONGBLOB
+);
+
+
+INSERT INTO people(name, gender, birthdate)
+VALUES
+	( "TEST1","m", "2002/04/01"),
+    ( "TEST2","m", "2002/04/01"),
+    ( "TEST3","m", "2002/04/01"),
+    ( "TEST4","m", "2002/04/01"),
+    ( "TEST5","m", "2002/04/01");
+
+    
+-- 7.Create Table Users
+CREATE TABLE IF NOT EXISTS users(
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(30) NOT NULL,
+  password VARCHAR(26) NOT NULL,
+  profile_picture TINYBLOB,
+  last_login_time TIMESTAMP,
+  is_deleted BOOL);
+
+INSERT INTO users(username, password)
+VALUE
+	("TEST1", "mr"),
+	("test2", "mf"),
+	("TEST3", "fsss"),
+	("test4", "dm"),
+	("TEST5", "mff");
+
+-- 8.Change Primary Key
+ALTER TABLE users
+MODIFY COLUMN id INT,
+DROP PRIMARY KEY,
+ADD PRIMARY KEY(id, username);
+
+-- 9.Set Default Value of a Field
+ALTER TABLE users
+CHANGE last_login_time last_login_time TIMESTAMP DEFAULT NOW();
+
+-- 10.Set Unique Field
+ALTER TABLE users
+DROP PRIMARY KEY,
+ADD PRIMARY KEY (id);
+
+ALTER TABLE users
+ADD UNIQUE (username);
+   
