@@ -107,4 +107,73 @@ ADD PRIMARY KEY (id);
 
 ALTER TABLE users
 ADD UNIQUE (username);
+
+-- 11.Movies Database
+CREATE DATABASE db_movies;
+
+USE db_movies;
+
+CREATE TABLE IF NOT EXISTS directors (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    director_name VARCHAR(255) NOT NULL,
+    notes TEXT
+);
+
+CREATE TABLE IF NOT EXISTS genres (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    genre_name VARCHAR(255) NOT NULL,
+    notes TEXT
+);
+
+CREATE TABLE IF NOT EXISTS categories (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    category_name VARCHAR(255) NOT NULL,
+    notes TEXT
+);
+
+CREATE TABLE IF NOT EXISTS movies (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    director_id INT NOT NULL,
+    copyright_year TEXT,
+    length TEXT,
+    genre_id INT,
+    category_id INT NOT NULL,
+    rating DOUBLE,
+    notes TEXT
+);
+
+INSERT INTO directors(director_name)
+VALUES
+    ("Kubrik"),
+    ("Beson"),
+    ("Ivanov"),
+    ("Petrov"),
+    ("Goshev");
+
+INSERT INTO genres(genre_name)
+VALUES
+    ("sci-fi"),
+    ("comedy"),
+    ("thriller"),
+    ("horror"),
+    ("mystery");
+    
+INSERT INTO categories(category_name)
+VALUES
+    ("PG"),
+    ("PG12"),
+    ("18+"),
+    ("PG15"),
+    ("PG3");
+    
+INSERT INTO movies (title, director_id, genre_id, category_id)
+VALUES
+    ("sci-fi", 1, 1, 2),
+    ("comedy", 2, 2, 1),
+    ("thriller", 3, 3, 4),
+    ("horror", 4, 4, 3),
+    ("mystery", 5, 5, 5);
+	
+    
    
