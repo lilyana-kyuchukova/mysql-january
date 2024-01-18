@@ -230,5 +230,7 @@ WHERE title LIKE "H%S";
 SELECT title FROM books
 WHERE title LIKE "% THE%";
 
-SELECT * FROM authors
-WHERE first_name REGEXP "[A-C]%";
+SELECT title
+FROM books
+WHERE title REGEXP "^Harry Potter"
+ORDER BY id;
