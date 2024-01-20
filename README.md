@@ -1,1 +1,1 @@
-# mysql_january
+# mysql_january course at SoftUni
